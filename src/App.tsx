@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Portfolio from './components/Portfolio';
-import Oracle from './components/Oracle';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ManifestoModal from './components/ManifestoModal';
@@ -17,16 +16,10 @@ function App() {
   const [showAllPortfolio, setShowAllPortfolio] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'login' | 'dashboard' | 'legal'>('home');
   const [userAddress, setUserAddress] = useState<string>('');
-  
-  // Track previous view to return correctly from Legal if accessed from elsewhere, 
-  // though typically Legal is from Footer which is on home/dashboard.
-  // For simplicity, closing legal returns to home if it was overlay, 
-  // but since we made it a view state, let's treat it as a full page.
-  
+
   const handleOpenPortfolio = () => {
     if (currentView !== 'home') {
       setCurrentView('home');
-      // Use setTimeout to allow render before scrolling
       setTimeout(() => {
         setShowAllPortfolio(true);
         const element = document.getElementById('portfolio');
@@ -56,35 +49,42 @@ function App() {
   };
 
   if (currentView === 'login') {
-    return <Login onBack={() => setCurrentView('home')} onLoginSuccess={handleLoginSuccess} />;
+    return (
+      <Login 
+        onBack={() => setCurrentView('home')} 
+        onLoginSuccess={handleLoginSuccess} 
+      />
+    );
   }
 
   if (currentView === 'dashboard') {
     return (
-        <div className="min-h-screen bg-dynasty-black text-white selection:bg-dynasty-lime selection:text-black">
-             <Navbar onLoginClick={() => {}} isLoggedIn={true} />
-             <Dashboard address={userAddress} onLogout={handleLogout} />
-             {/* Footer inside Dashboard? Usually yes for legal links access */}
-             <Footer 
-                onOpenManifesto={() => setIsManifestoOpen(true)} 
-                onOpenPortfolio={() => {
-                    setCurrentView('home');
-                    handleOpenPortfolio();
-                }}
-                onLoginClick={() => {}}
-                onOpenLegal={() => setCurrentView('legal')}
-             />
-             <ManifestoModal isOpen={isManifestoOpen} onClose={() => setIsManifestoOpen(false)} />
-        </div>
-    )
+      <div className="min-h-screen bg-dynasty-black text-white selection:bg-dynasty-lime selection:text-black">
+        <Navbar onLoginClick={() => {}} isLoggedIn={true} />
+        <Dashboard address={userAddress} onLogout={handleLogout} />
+        <Footer 
+          onOpenManifesto={() => setIsManifestoOpen(true)} 
+          onOpenPortfolio={() => {
+            setCurrentView('home');
+            handleOpenPortfolio();
+          }}
+          onLoginClick={() => {}}
+          onOpenLegal={() => setCurrentView('legal')}
+        />
+        <ManifestoModal 
+          isOpen={isManifestoOpen} 
+          onClose={() => setIsManifestoOpen(false)} 
+        />
+      </div>
+    );
   }
 
   if (currentView === 'legal') {
-      return (
-          <div className="min-h-screen bg-dynasty-black text-white selection:bg-dynasty-lime selection:text-black">
-              <Legal onClose={() => setCurrentView('home')} />
-          </div>
-      )
+    return (
+      <div className="min-h-screen bg-dynasty-black text-white selection:bg-dynasty-lime selection:text-black">
+        <Legal onClose={() => setCurrentView('home')} />
+      </div>
+    );
   }
 
   return (
@@ -97,11 +97,11 @@ function App() {
       <main>
         <Hero />
         <Portfolio 
-            showAll={showAllPortfolio} 
-            setShowAll={setShowAllPortfolio} 
-            onOpenCaseStudy={handleOpenCaseStudy}
+          showAll={showAllPortfolio} 
+          setShowAll={setShowAllPortfolio} 
+          onOpenCaseStudy={handleOpenCaseStudy}
         />
-        <Oracle />
+        {/* Oracle removed */}
         <Contact />
       </main>
       <Footer 
@@ -110,7 +110,10 @@ function App() {
         onLoginClick={() => setCurrentView('login')}
         onOpenLegal={() => setCurrentView('legal')}
       />
-      <ManifestoModal isOpen={isManifestoOpen} onClose={() => setIsManifestoOpen(false)} />
+      <ManifestoModal 
+        isOpen={isManifestoOpen} 
+        onClose={() => setIsManifestoOpen(false)} 
+      />
       <CaseStudyModal 
         isOpen={!!selectedCaseStudy} 
         onClose={() => setSelectedCaseStudy(null)} 
