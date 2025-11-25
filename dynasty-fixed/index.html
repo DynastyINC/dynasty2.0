@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DYNASTY | Crypto Venture Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Syncopate', 'sans-serif'],
+            },
+            colors: {
+              dynasty: {
+                black: '#050505',
+                lime: '#CCFF00',
+                limeDim: '#4D6600',
+                slate: '#1a1a1a',
+                blue: '#2E5CFF', 
+                accent: '#2E5CFF',
+              }
+            },
+            animation: {
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'glow': 'glow 2s ease-in-out infinite alternate',
+            },
+            keyframes: {
+              glow: {
+                '0%': { boxShadow: '0 0 5px rgba(204, 255, 0, 0.1)' },
+                '100%': { boxShadow: '0 0 20px rgba(204, 255, 0, 0.3), 0 0 10px rgba(204, 255, 0, 0.1)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        background-color: #050505;
+        color: #e5e5e5;
+        overflow-x: hidden;
+      }
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .text-glow {
+        text-shadow: 0 0 20px rgba(204, 255, 0, 0.3);
+      }
+      /* Custom Logo N Stylization */
+      .logo-n {
+        color: #2E5CFF;
+        display: inline-block;
+        /* Removed gradient clip to prevent distortion */
+      }
+      ::selection {
+        background-color: #CCFF00;
+        color: #000;
+      }
+    </style>
+  
+
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/src/index.tsx"></script>
+</body>
+</html>
