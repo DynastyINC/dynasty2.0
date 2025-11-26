@@ -103,9 +103,9 @@ const CASE_STUDIES: Record<string, CaseStudyData> = {
     stats: [
       {
         icon: <Activity className="w-8 h-8 text-white" />,
-        value: "100M+",
+        value: "1B+",
         label: "Trading Volume",
-        sub: "Before TGE"
+        sub: ""
       },
       {
         icon: <Zap className="w-8 h-8 text-white" />,
